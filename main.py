@@ -4,7 +4,7 @@ from matplotlib.animation import FuncAnimation
 
 PHASES = {"A": 0, "B": -2 * np.pi / 3, "C": 2 * np.pi / 3}
 AMPLITUDE = 1.0
-STEP = np.pi / 60
+STEP = np.pi / 50
 
 fig, ax = plt.subplots(figsize=(7, 7))
 ax.set_aspect("equal")
@@ -12,9 +12,9 @@ ax.set_xlim(-1.3, 1.3)
 ax.set_ylim(-1.3, 1.3)
 ax.axhline(0, linewidth=0.8)
 ax.axvline(0, linewidth=0.8)
-ax.grid(True, alpha=0.3)
-ax.set_xlabel("Real")
-ax.set_ylabel("Imaginary")
+ax.grid(True, alpha=0.2)
+# ax.set_xlabel("Real")
+# ax.set_ylabel("Imaginary")
 ax.set_title("Three-Phase Phasor Rotation")
 
 circle = plt.Circle((0, 0), AMPLITUDE, fill=False, linestyle="--", alpha=0.5)
@@ -44,7 +44,7 @@ def update(frame):
     return (*vectors.values(), *labels.values(), angle_text)
 
 
-animation = FuncAnimation(fig, update, frames=360, interval=30, blit=True)
+animation = FuncAnimation(fig, update, frames=360, interval=35, blit=True)
 plt.show()
 
 
