@@ -25,4 +25,6 @@ python main.py
 
 Change the parameters in `main.py` to explore different operating conditions.
 
-<img width="1095" height="1104" alt="image" src="https://github.com/user-attachments/assets/dba66f11-04f7-4241-a9e1-274b66ee3161" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/dba66f11-04f7-4241-a9e1-274b66ee3161" width="600" alt="Three-phase phasor animation">
+</p>
