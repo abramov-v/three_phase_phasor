@@ -3,6 +3,12 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
 PHASES = {"A": 0, "B": -2 * np.pi / 3, "C": 2 * np.pi / 3}
+
+# Electrical parameters (RMS line-to-line voltage and line current)
+VOLTAGE = 400.0
+CURRENT = 10.0
+FREQUENCY = 50.0
+
 AMPLITUDE = 1.0
 CURRENT_AMPLITUDE = 0.7
 LOAD_TYPE = "inductive"
@@ -13,7 +19,14 @@ LOAD_ANGLES = {
 }
 STEP = np.pi / 50
 
-CURRENT_LAG = np.deg2rad(LOAD_ANGLES[LOAD_TYPE])
+PHASE_ANGLE = LOAD_ANGLES[LOAD_TYPE]
+CURRENT_LAG = np.deg2rad(PHASE_ANGLE)
+
+# Three-phase power calculations
+APPARENT_POWER = np.sqrt(3) * VOLTAGE * CURRENT
+POWER_FACTOR = np.cos(CURRENT_LAG)
+ACTIVE_POWER = APPARENT_POWER * POWER_FACTOR
+REACTIVE_POWER = APPARENT_POWER * np.sin(CURRENT_LAG)
 
 fig, ax = plt.subplots(figsize=(7, 7))
 ax.set_aspect("equal")
@@ -48,6 +61,7 @@ for phase in PHASES:
 
 angle_text = ax.text(0.02, 0.98, "", transform=ax.transAxes, verticalalignment="top")
 load_text = ax.text(0.02, 0.92, "", transform=ax.transAxes, verticalalignment="top")
+power_text = ax.text(0.02, 0.86, "", transform=ax.transAxes, verticalalignment="top")
 
 
 def update(frame):
@@ -68,9 +82,16 @@ def update(frame):
         voltage_labels[phase].set_position((voltage_x * 1.08, voltage_y * 1.08))
         current_labels[phase].set_position((current_x * 1.08, current_y * 1.08))
 
-    angle_text.set_text(f"Angle: {np.degrees(angle) % 360:.1f}°")
+    angle_text.set_text(
+        f"Angle: {np.degrees(angle) % 360:.1f}° | {FREQUENCY:.0f} Hz"
+    )
     load_text.set_text(
-        f"Load: {LOAD_TYPE} | Current shift: {LOAD_ANGLES[LOAD_TYPE]:+.0f}°"
+        f"Load: {LOAD_TYPE} | φ: {PHASE_ANGLE:+.0f}° | "
+        f"{VOLTAGE:.0f} V | {CURRENT:.1f} A"
+    )
+    power_text.set_text(
+        f"P: {ACTIVE_POWER:.0f} W | Q: {REACTIVE_POWER:.0f} var | "
+        f"S: {APPARENT_POWER:.0f} VA | cosφ: {POWER_FACTOR:.2f}"
     )
 
     return (
@@ -80,6 +101,7 @@ def update(frame):
         *current_labels.values(),
         angle_text,
         load_text,
+        power_text,
     )
 
 
