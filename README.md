@@ -2,7 +2,7 @@
 
 A small Python visualization of a balanced three-phase system.
 
-The project shows three equal-magnitude phasors rotating at the same angular velocity with a 120° phase shift between phases A, B, and C.
+The project shows three equal-magnitude voltage phasors rotating at the same angular velocity with a 120° phase shift between phases A, B, and C. Corresponding current phasors can be displayed with a configurable load-dependent phase shift.
 
 ## Stack
 
@@ -26,11 +26,26 @@ python main.py
 
 ## Current scope
 
-- Three rotating phasors
-- 120° phase displacement
-- Unit amplitude
+- Three rotating voltage phasors
+- 120° phase displacement between phases
+- Current phasors for phases A, B, and C
+- Configurable resistive, inductive, or capacitive load
+- Load-dependent voltage/current phase shift
+- Unit voltage amplitude and configurable current amplitude
 - Real/imaginary axes
 - Reference circle
 - Current rotation angle
 
-This is intentionally a small engineering visualization project. More features may be added later.
+To change the load type, edit `LOAD_TYPE` in `main.py`:
+
+```python
+LOAD_TYPE = "inductive"
+```
+
+Available values:
+
+- `resistive` — current in phase with voltage
+- `inductive` — current lags voltage by 90°
+- `capacitive` — current leads voltage by 90°
+
+This is intentionally a small engineering visualization project focused on connecting electrical engineering concepts with Python.
