@@ -1,4 +1,4 @@
-# Three-Phase Phasor Animation
+# Three-Phase Phasor
 
 A small Python visualization of a balanced three-phase system.
 
